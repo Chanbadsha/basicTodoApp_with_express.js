@@ -7,6 +7,12 @@ const app : Application = express()
 // Middleware
 app.use(express.json())
 
+// Create todos router with express router
+const todosRouter = express.Router()
+
+// use express router 
+app.use("/todos",todosRouter)
+
 
 const filePath = path.join(__dirname,"../../db/todos.json")
 
@@ -22,6 +28,9 @@ console.log(todos)
 })
 // Get single todo
 app.get('/todo', (req: Request, res: Response)=>{
+    const query = req.query
+    // const param = req.params
+    console.log(query)
    
   res.send('This is todo route')
 })
@@ -30,6 +39,19 @@ app.post('/createTodo', (req: Request, res: Response)=>{
     const todo  = req.body
     console.log(todo)
   res.send('This is create todo routes')
+})
+
+
+// Express Routing with Express Router
+todosRouter.get('/all-todos',(req:Request,res:Response)=>{
+    res.send("Msg from todosRouter")
+})
+
+
+// Normal Routing
+
+app.get('/todos/all-todos',(req:Request,res:Response)=>{
+    res.send('Msg from normal router')
 })
 
 
