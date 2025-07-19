@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Nusrat Jahan",
+    "email": "nusrat.jahan@example.com",
+    "age": 22,
+    "isActive": true
+  },
+  {
+    "name": "Saiful Islam",
+    "email": "saiful.islam@example.com",
+    "age": 25,
+    "isActive": false
+  },
+  {
+    "name": "Tania Akter",
+    "email": "tania.akter@example.com",
+    "age": 23,
+    "isActive": true
+  },
+  {
+    "name": "Raihan Kabir",
+    "email": "raihan.kabir@example.com",
+    "age": 28,
+    "isActive": false
+  },
+  {
+    "name": "Mim Chowdhury",
+    "email": "mim.chowdhury@example.com",
+    "age": 20,
+    "isActive": true
+  },
+  {
+    "name": "Fahim Hasan",
+    "email": "fahim.hasan@example.com",
+    "age": 27,
+    "isActive": true
+  },
+  {
+    "name": "Sadia Sultana",
+    "email": "sadia.sultana@example.com",
+    "age": 24,
+    "isActive": false
+  },
+  {
+    "name": "Junaid Alam",
+    "email": "junaid.alam@example.com",
+    "age": 29,
+    "isActive": true
+  },
+  {
+    "name": "Anika Rahman",
+    "email": "anika.rahman@example.com",
+    "age": 21,
+    "isActive": false
+  },
+  {
+    "name": "Tanvir Ahmed",
+    "email": "tanvir.ahmed@example.com",
+    "age": 26,
+    "isActive": true
+  }
+]
