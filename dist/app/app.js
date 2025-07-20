@@ -6,13 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const todosRoute_1 = __importDefault(require("./todos/todosRoute"));
 const app = (0, express_1.default)();
 // Middleware
 app.use(express_1.default.json());
 // Create todos router with express router
-const todosRouter = express_1.default.Router();
+// const todosRouter = express.Router()
 // use express router 
-app.use("/todos", todosRouter);
+// app.use("/todos",todosRouter)
 const filePath = path_1.default.join(__dirname, "../../db/todos.json");
 app.get('/', (req, res) => {
     res.send("Welcome to todo Server using Express JS");
@@ -24,10 +25,11 @@ app.get('/todos', (req, res) => {
     res.send('This is all todos route');
 });
 // Get single todo
-app.get('/todo', (req, res) => {
-    const query = req.query;
-    // const param = req.params
-    console.log(query);
+app.get('/todos/todo/:id', (req, res) => {
+    const idQuery = req.query;
+    console.log(idQuery);
+    const id = req.params;
+    console.log(id);
     res.send('This is todo route');
 });
 // Create todo
@@ -37,7 +39,7 @@ app.post('/createTodo', (req, res) => {
     res.send('This is create todo routes');
 });
 // Express Routing with Express Router
-todosRouter.get('/all-todos', (req, res) => {
+todosRoute_1.default.get('/all-todos', (req, res) => {
     res.send("Msg from todosRouter");
 });
 // Normal Routing

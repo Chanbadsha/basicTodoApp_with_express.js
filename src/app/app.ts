@@ -2,16 +2,17 @@
 import express, { Application, Request, Response } from 'express'
 import fs from "fs"
 import path from 'path'
-import { URL } from 'url'
+import todosRouter from './todos/todosRoute'
+
 const app : Application = express()
 // Middleware
 app.use(express.json())
 
 // Create todos router with express router
-const todosRouter = express.Router()
+// const todosRouter = express.Router()
 
 // use express router 
-app.use("/todos",todosRouter)
+// app.use("/todos",todosRouter)
 
 
 const filePath = path.join(__dirname,"../../db/todos.json")
@@ -27,10 +28,11 @@ console.log(todos)
  res.send('This is all todos route')
 })
 // Get single todo
-app.get('/todo', (req: Request, res: Response)=>{
-    const query = req.query
-    // const param = req.params
-    console.log(query)
+app.get('/todos/todo/:id', (req: Request, res: Response)=>{
+    const idQuery = req.query
+    console.log(idQuery)
+const id = req.params
+console.log(id)
    
   res.send('This is todo route')
 })
