@@ -12,18 +12,31 @@ const filePath = path.join(__dirname, "../../../db/todos.json")
 
 const todosRouter = express.Router()
 
+// Find ALl todos
+todosRouter.get('/', async(req: Request, res: Response) => {
+    // const todos = fs.readFileSync(filePath, { encoding: "utf-8" })
+    // res.send({
+    //     msg: 'Msg from todosRouter from different file',
+    //     todos
+    // })
 
-todosRouter.get('/', (req: Request, res: Response) => {
-    const todos = fs.readFileSync(filePath, { encoding: "utf-8" })
-    res.send({
+    const db = await client.db("todosDB")
+    const todos = await db.collection('todos').find().toArray()
+    console.log(todos)
+
+        res.json({
         msg: 'Msg from todosRouter from different file',
         todos
     })
+
+
+
 })
 
+// Find one todo
 todosRouter.get('/todo/:id', async (req: Request, res: Response) => {
     const id = req.params.id
-    // console.log({ _id: new ObjectId(id) })
+   
     const db = await client.db('todosDB')
     const todo = await db.collection('todos').findOne({ _id: new ObjectId(id) })
 if (todo) {
