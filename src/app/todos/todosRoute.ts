@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express'
 import fs from 'fs'
 import path from 'path'
 import { client } from '../config/mongodb'
+import { ObjectId } from 'mongodb'
 
 const app: Application = express()
 
@@ -20,11 +21,23 @@ todosRouter.get('/', (req: Request, res: Response) => {
     })
 })
 
-todosRouter.get('/todo/:id', (req: Request, res: Response) => {
-
-    res.send({
-        msg: "Msg from todosRouter from diffrent file , Single Todo"
-    })
+todosRouter.get('/todo/:id', async (req: Request, res: Response) => {
+    const id = req.params.id
+    // console.log({ _id: new ObjectId(id) })
+    const db = await client.db('todosDB')
+    const todo = await db.collection('todos').findOne({ _id: new ObjectId(id) })
+if (todo) {
+  res.json({
+    statusCode: 200,
+    message: 'Todo fetched successfully',
+    data: todo,
+  });
+} else {
+  res.json({
+    statusCode: 404,
+    message: 'Todo not found',
+  });
+}
 })
 
 // Create todo with mongodb
