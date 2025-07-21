@@ -22,7 +22,6 @@ todosRouter.get('/', async(req: Request, res: Response) => {
 
     const db = await client.db("todosDB")
     const todos = await db.collection('todos').find().toArray()
-    console.log(todos)
 
         res.json({
         msg: 'Msg from todosRouter from different file',
@@ -95,6 +94,41 @@ if (deletedTodo.deletedCount === 1) {
     });
 
 }
+})
+
+
+// Const update todo in mongodb
+todosRouter.put('/updateTodo/:id',async(req:Request,res:Response)=>{
+  const {title,completed,priority,description} = req.body
+  // console.log(updateData)
+  const id = req.params.id
+  const filter = {_id: new ObjectId(id)}
+  const updateDoc ={
+    title,
+    completed,
+    priority,
+    description,
+
+  }
+  const db = await client.db('todosDB')
+  const updateTodo = await db.collection("todos").updateOne(filter,{$set:updateDoc},{upsert:true})
+
+  if (updateTodo.modifiedCount === 1) {
+   return res.status(201).json({
+            success: true,
+            statusCode: 201,
+            message: 'Todo updated successfully.'
+        });
+} else {
+   return res.status(500).json({
+        success: false,
+        statusCode: 500,
+        message: 'Failed to update todo. Please try again later.'
+    });
+
+}
+
+
 })
 
 export default todosRouter
