@@ -28,9 +28,6 @@ todosRouter.get('/', async(req: Request, res: Response) => {
         msg: 'Msg from todosRouter from different file',
         todos
     })
-
-
-
 })
 
 // Find one todo
@@ -66,7 +63,6 @@ todosRouter.post('/createTodo', async (req, res) => {
             insertedId: collection.insertedId
         });
     }
-
     return res.status(500).json({
         success: false,
         statusCode: 500,
@@ -74,6 +70,31 @@ todosRouter.post('/createTodo', async (req, res) => {
     });
 
 
+})
+
+// Delete Todo with mongodb
+todosRouter.delete('/deleteTodo/:id', async(req:Request,res:Response)=>{
+  const id = req.params.id
+
+  const filter = {_id:new ObjectId(id)}
+  const db = await client.db("todosDB")
+  // console.log(filter)
+  const deletedTodo = await db.collection('todos').deleteOne(filter)
+  console.log(deletedTodo)
+if (deletedTodo.deletedCount === 1) {
+   return res.status(201).json({
+            success: true,
+            statusCode: 201,
+            message: 'Todo deleted successfully.'
+        });
+} else {
+   return res.status(500).json({
+        success: false,
+        statusCode: 500,
+        message: 'Failed to delete todo. Please try again later.'
+    });
+
+}
 })
 
 export default todosRouter
